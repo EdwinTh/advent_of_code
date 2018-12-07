@@ -1,4 +1,5 @@
-freq_list <- readLines("~/Desktop/tmp.txt") %>%
+library(tidyverse)
+freq_list <- readLines("data/advent_data1") %>%
   stringr::str_replace("\\+", "") %>%
   as.numeric()
 
@@ -7,7 +8,8 @@ sum(freq_list)
 
 # challenge 2
 cumsum(freq_list) %>% table() %>% table()
-
+cumsum(freq_list %>% rep(100)) %>% table() %>% table()
+cumsum(freq_list %>% rep(150)) %>% table() %>% table()
 #trial and error, it is somwhere between 100 and 150 repetitions
 
 ## solution 1
@@ -18,13 +20,15 @@ for (i in 101:150) {
   }
 }
 
+# it is in the 145th repetition
+
 up_untill_145 <- cumsum(rep(freq_list, 144))
 iter_145 <- freq_list
 iter_145[1] <- iter_145[1] + tail(up_untill_145, 1)
 inter_145_summed <- cumsum(iter_145)
 inter_145_summed[inter_145_summed %in% up_untill_145]
 
-## soluttion2
+## solution 2
 df <- data_frame(total = rep(freq_list, 200) %>% cumsum()) %>%
   mutate(nr = row_number())
 
