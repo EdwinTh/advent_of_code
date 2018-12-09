@@ -56,3 +56,8 @@ pl +
   geom_point(data = not_inf, aes(col = ref_point), alpha = .05)
 
 ## Part 2
+all_dists %>% 
+  group_by(x, y) %>% 
+  summarise(tot_manhat = sum(manhat)) %>% 
+  filter(tot_manhat < 10000) %>% 
+  nrow()
