@@ -44,10 +44,9 @@ c(done_steps, available) %>% paste(collapse = "")
 update_tasks <- function(tasks, 
                          letter, 
                          row_nr) {
-  first_free <- which(tasks[row_nr, ] == "") %>% min()
-  if (length(first_free) == 0) return(tasks)
+  free_worker <- which(tasks[row_nr, ] == "") %>% min()
   step_time  <- (1:26)[LETTERS == letter] + 60
-  tasks[row_nr:(row_nr + step_time), first_free] <- letter
+  tasks[row_nr:(row_nr + step_time - 1), free_worker] <- letter
   tasks
 }
 
@@ -75,6 +74,7 @@ for (i in 1:max_seconds) {
   ## assign pending steps to worker
   if (length(available) > 0) {
     for (step in sort(available)) {
+      if (all(tasks[i, ] != "")) break
       tasks <- update_tasks(tasks, step, i)
       available <- available[available != step]
     }
@@ -91,4 +91,6 @@ for (i in 1:max_seconds) {
     impeded_df <- remove_freed_up_steps(impeded_df)
   }
 }  
-  
+
+(which(rowSums(tasks == "") == 5) %>% min()) - 1
+
