@@ -42,3 +42,36 @@ for (i in 1:20) {
 
 end_state <- generations[[21]]
 names(end_state)[end_state == "#"] %>% as.numeric() %>% sum()
+
+## Part 2
+init_nr <- initial_state %>% 
+  str_replace_all("#" , '2') %>% str_replace_all("\\.", "1") %>% 
+  as.numeric() %>% 
+  c(1, 1, 1, ., 1, 1)
+
+growth_df_nr <- growth_df %>% 
+  mutate(state = str_replace_all(state, "#" , '2') %>% 
+           str_split("") %>% 
+           map_dbl(~str_replace_all(.x, "\\.", "1") %>% paste0(collapse = "") %>% as.numeric())) %>% 
+  mutate(new = str_replace_all(new, "#" , '2') %>% str_replace_all("\\.", "1") %>% as.numeric()) %>% 
+  bind_rows(data_frame(state = 0, new = 1))
+
+## TODO beginning and end
+state_to_state_df <- function(current_state) {
+  data_frame(
+    state = c(0, 0, 
+              map_dbl(1:(length(current_state) - 4), 
+                            ~current_state[.x:(.x + 4)] %>% 
+                              paste0(collapse = "") %>% 
+                              as.numeric()), 
+              0, 0, 0, 0))
+}
+
+state <- init_nr
+for (i in 1:200) {
+  state <- inner_join(
+    state_to_state_df(state), growth_df_nr, by = "state"
+  ) %>% pull(new)
+}
+
+(-3:(length(state)-4))[state == 2]
