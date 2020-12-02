@@ -3,7 +3,7 @@ d2 <- readLines("data/data02")
 
 # star 1
 spl <- d2 %>% str_split(" ")
-from_to <- map(spl, 1) %>% map(~str_split(.x, "-") %>% unlist %>% as.numeric)
+from_to <- map_chr(spl, 1) %>% str_split("-") %>% map(as.numeric)
 char    <- map_chr(spl, 2) %>% str_replace(":", "")
 pattern <- map_chr(spl, 3) %>% str_split("")
 times_char_in_pattern <- map2_int(char, pattern, ~sum(.x == .y))
