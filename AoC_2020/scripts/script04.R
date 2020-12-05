@@ -9,6 +9,7 @@ into_key_value <- function(x) {
   names(values) <- map_chr(str_split(x, ":"), 1)
   values
 }
+
 kv <- map(str_split(documents, " "), into_key_value)
 
 # star 1
