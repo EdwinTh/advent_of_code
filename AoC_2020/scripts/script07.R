@@ -55,7 +55,6 @@ colSums(sg == "shiny gold", na.rm = T)
 sg_ss <- sg %>% filter(to10 == "shiny gold") %>% 
   select(to11:nr16)
 
-
 get_bags <- function(x) x %>% select_if(is.numeric) %>% apply(1, prod) %>% sum()
 nr16 <- sg_ss %>% filter(!is.na(nr16)) %>% get_bags()
 nr15 <- sg_ss %>% select(to11:nr15) %>% filter(!is.na(nr15)) %>% distinct() %>% get_bags()
