@@ -42,3 +42,4 @@ while (nrow(coord_visited) == nrow(distinct(coord_visited))) {
   coord <- new_coord
 }
 coord_visited %>% count(one, two, sort = TRUE)
+8 + 158
