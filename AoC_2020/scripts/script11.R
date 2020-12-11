@@ -1,36 +1,3 @@
-Skip to content
-Why GitHub? 
-  Team
-Enterprise
-Explore 
-Marketplace
-Pricing 
-Search
-
-Sign in
-Sign up
-EdwinTh
-/
-  advent_of_code
-120
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-Join GitHub today
-GitHub is home to over 50 million developers working together to host and review code, manage projects, and build software together.
-
-advent_of_code/AoC_2020/scripts/script11.R
-@EdwinTh
-EdwinTh day 12 :)
-Latest commit bab468d 1 hour ago
-History
-1 contributor
-60 lines (51 sloc)  2.05 KB
-
 library(tidyverse)
 d11 <- read_lines("data/data11") %>% str_split("") %>% 
   map2_dfr(1:length(.), ~tibble(val = .x, x = 1:length(.x), y = .y))
