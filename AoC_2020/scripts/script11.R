@@ -22,7 +22,7 @@ update_vals <- function(df, mp, min_occ) {
     mutate(new_val = case_when(
       val == "L" & adj_occ == 0       ~ "#",
       val == "#" & adj_occ > min_occ  ~ "L",
-      TRUE                      ~ val
+      TRUE                            ~ val
     )) %>% arrange(y, x)
 }
 
