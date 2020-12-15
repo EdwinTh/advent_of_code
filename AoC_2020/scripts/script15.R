@@ -1,4 +1,3 @@
-library(tidyverse)
 d15 <- c(15,5,1,4,7,0)
 
 # star 1 
