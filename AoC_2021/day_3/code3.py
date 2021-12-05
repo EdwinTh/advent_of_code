@@ -52,6 +52,7 @@ for i in range(len(co2_data[0])):
 		co2_vals[i] = reverse_zero_one(co2_vals[i])
 	co2_data = keep_only(co2_data, i, co2_vals[i])
 	if len(co2_data) == 1:
+		print(co2_vals)
 		break
 
 print(int(''.join(oxygen_data), 2) * int(''.join(co2_data), 2))
