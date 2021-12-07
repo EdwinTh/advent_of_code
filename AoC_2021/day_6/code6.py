@@ -27,8 +27,7 @@ def update_fish2(cnt):
     new_dict[8] = cnt.get(0, 0)
     return new_dict
 
-
-star2_data = dict(Counter(data))
+star2_data = Counter(data)
 for i in range(256):
     star2_data = update_fish2(star2_data)
 
