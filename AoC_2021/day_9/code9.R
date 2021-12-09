@@ -33,12 +33,22 @@ df_to_list <- function(df) {
   map(split(df, rownames(df)), unlist)
 }
 
-find_basin <- function(rw, cl) {
+select_new_inds <- function(new_inds, in_basin) {
+  ni <- map_chr(new_inds, ~paste(.x, collapse =  "-"))
+  ib <- map_chr(in_basin, ~paste(.x, collapse =  "-"))
+  new_inds[!ni %in% ib]
+}
+
+find_basin_size <- function(rw, cl) {
   to_run <- in_basin <- list(c(rw, cl))
   while(length(to_run) > 0) {
     new_inds <- adj_none_9(to_run[[1]][1], to_run[[1]][2], with_adj) |>
-      df_to_list()
+      df_to_list() |> select_new_inds(in_basin)
     in_basin <- c(in_basin, new_inds)
     to_run <- c(to_run[-1], new_inds)
   }
+  length(in_basin)
 }
+
+map2_int(local_mins$ri, local_mins$ci, find_basin_size) |> sort() |> rev() %>% 
+  `[`(1:3) |> prod()
