@@ -27,7 +27,7 @@ def one_step(combs, mapping):
         new_combs = new_combs + comb_to_new_combs(k, v, mapping)
     return new_combs
 
-for i in range(40):
+for _ in range(40):
     combs = one_step(combs, mapping)
 
 def wrap_to_letters(k, v):
