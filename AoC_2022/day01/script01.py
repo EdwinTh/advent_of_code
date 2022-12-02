@@ -9,5 +9,4 @@ for d in data:
     else:
         data_dict[elve] = data_dict.get(elve, 0) + int(d)
 print("Star 1 =", max(data_dict.values()))
-
 print("Star 2 =", sum(sorted(data_dict.values())[-3:]))
