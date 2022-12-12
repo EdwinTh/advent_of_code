@@ -1,34 +1,32 @@
 import re
 with open("data07.txt") as file:
-    data = [f.strip() for f in file]
+    data = [f.strip() for f in file.readlines()]
+data = [d for d in data if d not in ['$ cd ..', '$ ls']]
 
-print(data)
-class fs_tree:
+folders = {}
+files = {}
+current_folder = "/"
+filesize = 0
+for d in data[1:]:
+    if d[:4] == '$ cd':
+        files[current_folder] = filesize
+        filesize = 0
+        current_folder = d[5:]
+    elif d[:3] == 'dir':
+        folders[d[4:]] = current_folder
+    else:        
+        filesize += int(re.findall(r'\d+', d)[0])
+files[current_folder] = filesize
 
-    def __init__(self, root = "/", root_files = {}):
-        self.folders = {root : {}}
-        self.files = {root : root_files}
-        self.wd = [root]
+all_dirs = list(set(list(folders.keys()) + list(folders.values())))
+children = {}
+for d in all_dirs:
+    children[d] = [k for k,v in folders.items() if v == d]
+print(children)
 
-    def add_folder(self, folders, name):
-        if len(folders) == 1:
-            self.folders[folders[0]] = {name: }
-        return self.add_folder(self.folders[folders[0]], folders[1:], name)
-
-    def add_files(self, foldername, filedict):
-        self.files[foldername] = filedict
-    
-    def move_loc_down(self, foldername):
-        self.loc = self. + [foldername]
-    
-    def move_loc_up(self):
-        self.loc.pop(len(self.loc)-1)
-
-        files = [d.split(" ") for d in data if d[0].isdigit()]
-        self.files = {f[1]:int(f[0]) for f in files}
+def get_sizes(cs):
+    for c in cs:
+        return get_sizes(children[c])
         
-        self.folders = []
 
-a = {'b':{'c':3}}
-
-
+print(get_sizes(children['/']))
