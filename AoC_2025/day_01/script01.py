@@ -32,11 +32,9 @@ for d in data:
 zero_counter = 0
 prev_place = place = 50
 
-for nr,d in enumerate(new_data):
+for d in new_data:
     zero_counter += d['hundreds']
     place += -1*d['val'] if d['dir'] == 'L' else d['val']
-    print(d)
-    print('place before', place)
     if place == 0:
         zero_counter += 1
     elif place < 0:
@@ -47,8 +45,5 @@ for nr,d in enumerate(new_data):
     elif place > 99:
         zero_counter += 1
         place = place - 100
-    
-    print('place after', place)
-    print(zero_counter)
 
 print('Star 2 =', zero_counter)
