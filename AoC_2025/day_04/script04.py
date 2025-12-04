@@ -21,7 +21,7 @@ for i in range(dim):
 
 print('Star 1:', counter)
 
-# put it in a list so it is not immutable anymore
+# put data in a list so it is not immutable anymore
 data_list = []
 for d in data:
     data_list.append([el for el in d])
