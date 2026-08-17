@@ -80,7 +80,6 @@ class Tree:
     # of all the paths that lead to its parents. If a child is a beam and not a node
     # it will lead to the floor and thus is the end. Then we add the paths leading to
     # that path to the total.
-
     def count_paths(self):
         total_paths = 0
         active_nodes = {self.root_id:1}
